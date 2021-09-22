@@ -20,7 +20,7 @@ class CreatePostinganTable extends Migration
             $table->unsignedInteger('subKategori_id');
             $table->string('judul',50);
             $table->longText('isi');
-            $table->enum('status',['published','unpublish']);
+            $table->enum('status',['published','unpublish'])->default('unpublish');
             $table->dateTime('published_at');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
