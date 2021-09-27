@@ -15,7 +15,7 @@ class KategoriController extends Controller
     public function index()
     {
         $kategori = Kategori::all();
-        return view('kategori.index', compact('kategori'));
+        return view('admin.kategori.index', compact('kategori'));
     }
 
     public function store(Request $req)
@@ -34,7 +34,6 @@ class KategoriController extends Controller
     {
         $id_kategori = $req->id_kategori;
         $nama_kategori  = $req->nama;
-
         $kategori = Kategori::where('id_kategori',$id_kategori)->update([
             'nama' => $nama_kategori,
         ]);
@@ -45,7 +44,6 @@ class KategoriController extends Controller
     public function destroy($id)
     {
         $kategori = Kategori::where('id_kategori',$id)->delete();
-
         return redirect()->back()->with("error"," Data Berhasil Di Hapus");
     }
 }

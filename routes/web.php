@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenulisController;
 use App\Http\Controllers\PostinganController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\SubKategoriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,18 +48,30 @@ Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
 
 
 // route admin  
-Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){ 
+Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){ 
     // admin kategori
-    Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
-    Route::post('/tambahKategori', [App\Http\Controllers\KategoriController::class, 'store'])->name('tambahKategori');
-    Route::patch('/kategori/update', [App\Http\Controllers\KategoriController::class, 'update'])->name('updateKategori');
-    Route::get('/kategori/{id_kategori}',[App\Http\Controllers\KategoriController::class, 'destroy'])->name('deleteKategori');
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::patch('/kategori/update', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::get('/kategori/{id}',[KategoriController::class, 'destroy'])->name('kategori.delete');
 
     //admin sub kategori
-    Route::get('/subKategori',[App\Http\Controllers\SubKategoriController::class, 'index'])->name('subKategori');
-    Route::post('/tambahSubKategori', [App\Http\Controllers\SubKategoriController::class, 'store'])->name('tambahSubKategori');
-    Route::patch('/subKategori/update', [App\Http\Controllers\SubKategoriController::class, 'update'])->name('updateSubKategori');
-    Route::get('/subkategori/{id_subkategori}',[App\Http\Controllers\SubKategoriController::class, 'destroy'])->name('deleteSubKategori');
+    Route::get('/subkategori',[SubKategoriController::class, 'index'])->name('subkategori');
+    Route::post('/subkategori/store', [SubKategoriController::class, 'store'])->name('subkategori.store');
+    Route::patch('/subkategori/update', [SubKategoriController::class, 'update'])->name('subkategori.update');
+    Route::get('/subkategori/{id}',[SubKategoriController::class, 'destroy'])->name('subkategori.delete');
+
+
+    // Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
+    // Route::post('/tambahKategori', [App\Http\Controllers\KategoriController::class, 'store'])->name('tambahKategori');
+    // Route::patch('/kategori/update', [App\Http\Controllers\KategoriController::class, 'update'])->name('updateKategori');
+    // Route::get('/kategori/{id_kategori}',[App\Http\Controllers\KategoriController::class, 'destroy'])->name('deleteKategori');
+
+    // //admin sub kategori
+    // Route::get('/subKategori',[App\Http\Controllers\SubKategoriController::class, 'index'])->name('subKategori');
+    // Route::post('/tambahSubKategori', [App\Http\Controllers\SubKategoriController::class, 'store'])->name('tambahSubKategori');
+    // Route::patch('/subKategori/update', [App\Http\Controllers\SubKategoriController::class, 'update'])->name('updateSubKategori');
+    // Route::get('/subkategori/{id_subkategori}',[App\Http\Controllers\SubKategoriController::class, 'destroy'])->name('deleteSubKategori');
 
     //Admin Postingan
     Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');

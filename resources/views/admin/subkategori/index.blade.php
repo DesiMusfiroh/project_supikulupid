@@ -1,33 +1,34 @@
-@extends('template.admin')
-
-@section('header')
-
-@stop
+@extends('layouts.admin.master')
 
 @section('content')
-<div class="card p-4">
-    <div class="card-header">
-        <h4>Daftar Sub Kategori</h4>
-        <!-- <form action="#"> -->
-            <button type="submit" class="d-block mr-0 ml-auto btn-success " data-toggle="modal" data-target="#modalForm"><i class="fa fa-plus"></i> Tambah</button>
-        <!-- </form> -->
-        <!-- <a href="#" class="d-block mr-0 ml-auto btn-success btn-tambah"> <i class="fa fa-plus"></i> Tambah</a> -->
-    </div>
-    @if ($message = Session::get('success'))
-      <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-          <strong>{{ $message }}</strong>
-      </div>
-    @endif
 
-    @if ($message = Session::get('error'))
-      <div class="alert alert-danger alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-        <strong>{{ $message }}</strong>
-      </div>
-    @endif
-    <div class="bady-body">
-        <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
+<section class="section">
+    <div class="section-header">
+        <h1>Sub Kategori</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+            <div class="breadcrumb-item active"><a href="/kategori">Kategori</a></div>
+            <div class="breadcrumb-item">Sub Kategori</div>
+        </div>
+    </div>
+
+    <div class="section-body">
+        <div class="card">
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>    
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+            @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>    
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+            <table id="tabel-data" class="table table-striped table-bordered" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <th>No</th>
@@ -43,22 +44,22 @@
                     <td>{{$value->kategori->nama}}</td>
                     <td>{{$value->nama}}</td>
                     <td>
-                    <a href="#" class="btn btn-warning py-2 px-3 active edit-subkategori" 
+                    <button href="#" class="btn btn-warning edit-subkategori" 
                         data-id_subkategori="{{$value->id_subkategori}}" 
                         data-id_kategori="{{$value->kategori_id}}" 
                         data-nama_subkategori="{{$value->nama}}"
                         data-toggle="modal" data-target="#edit_subkategori">
                              Edit
-                    </a>    
-                    <a href="/subkategori/{{$value->id_subkategori}}"  class="btn btn-danger">Hapus</a>
+                    </button>    
+                    <button href="/subkategori/{{$value->id_subkategori}}"  class="btn btn-danger">Hapus </button>   
                     </td>   
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
-</div>
-
+</section>
 <!-- modal-show  -->
 <div class="modal fade modal-show" id="modalForm" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -67,7 +68,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Tambah Sub Kategori</h5>
       <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-      <form action="{{route('tambahSubKategori')}}" method="post" >
+      <form action="{{route('subkategori.store')}}" method="post" >
       @csrf
       @method('POST')
       <div class="modal-body">
@@ -94,11 +95,50 @@
   </div>
 </div>
 
+<!-- Modal EDIT  -->
+<div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="edit_subkategori">
+    <div class="modal-dialog modal-lg-12" >
+      <div class="modal-content">
+        <div class="modal-header ">
+          <h5 class="modal-title " id="exampleModalLabel"> Edit Pakar</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{route('subkategori.update')}}" enctype="multipart/form-data" method="post">
+          @csrf @method('PATCH')
+            <div class="modal-body">
+              <div class="container">
+              <div class="col-md-12">
+              <input type="hidden" value="" name="id_subkategori" id="subkategori_id_update">
+
+                    <div class="form-group">
+                      <label for="nama_pakar" class="col-form-label">Kategori</label>
+                      <!-- <input class="form-control" type="text" name="nama" id="kategori_id_update" value=""> -->
+                      <select class="form-control" aria-label=".form-select-sm example" name="kategori_id">
+                        <!-- <option selected id="kategori_id_update" value=""></option> -->
+                        @foreach($kategori as $kat)
+                            <option value="{{$kat->id_kategori}}">{{$kat->nama}}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="nama" class="col-form-label">Sub Kategori</label>
+                      <input class="form-control" type="text" name="nama" id="nama_subkategori_update" value="">
+                    </div>
+              </div>
+            </div>
 
 
-@stop
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-info btn-sm" >Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
 
-@section('footer')
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
@@ -136,48 +176,5 @@
         });
     });
 </script>
-
-<!-- Modal EDIT  -->
-<div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="edit_subkategori">
-    <div class="modal-dialog modal-lg-12" >
-      <div class="modal-content">
-        <div class="modal-header ">
-          <h5 class="modal-title " id="exampleModalLabel"> Edit Pakar</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form action="{{route('updateSubKategori')}}" enctype="multipart/form-data" method="post">
-          @csrf @method('PATCH')
-            <div class="modal-body">
-              <div class="container">
-              <div class="col-md-12">
-              <input type="hidden" value="" name="id_subkategori" id="subkategori_id_update">
-
-                    <div class="form-group">
-                      <label for="nama_pakar" class="col-form-label">Kategori</label>
-                      <!-- <input class="form-control" type="text" name="nama" id="kategori_id_update" value=""> -->
-                      <select class="form-control" aria-label=".form-select-sm example" name="kategori_id">
-                        <!-- <option selected id="kategori_id_update" value=""></option> -->
-                        @foreach($kategori as $kat)
-                            <option value="{{$kat->id_kategori}}">{{$kat->nama}}</option>
-                        @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                      <label for="nama" class="col-form-label">Sub Kategori</label>
-                      <input class="form-control" type="text" name="nama" id="nama_subkategori_update" value="">
-                    </div>
-              </div>
-            </div>
-
-
-          <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-info btn-sm" >Simpan</button>
-          </div>
-        </form>
-      </div>
-    </div>
-</div>
 @stop
+

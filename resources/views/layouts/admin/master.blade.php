@@ -39,15 +39,15 @@
   <div id="app">
     <div class="main-wrapper">
 
-      @include('layouts.penulis.header')
-      @include('layouts.penulis.sidebar')
+      @include('layouts.admin.header')
+      @include('layouts.admin.sidebar')
 
       <!-- Main Content -->
       <div class="main-content">
           @yield('content')
       </div>
 
-      @include('layouts.penulis.footer')
+      @include('layouts.admin.footer')
     </div>
   </div>
 
