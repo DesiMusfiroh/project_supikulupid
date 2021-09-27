@@ -12,7 +12,8 @@ class Penulis extends Model
 
     protected $table = "penulis";
     protected $primaryKey = "id_penulis";
-
+    protected $fillable = ['user_id','nama'];
+   
     public function user()
     {
         return $this->hasOne('App\User');

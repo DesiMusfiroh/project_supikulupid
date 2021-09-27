@@ -2,8 +2,7 @@
     use App\Models\SubKategori;
     use App\Models\Kategori;
 ?>
-
-@extends('template-admin.template')
+@extends('template.admin')
 
 @section('header')
 

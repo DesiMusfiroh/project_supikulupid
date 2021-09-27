@@ -16,10 +16,9 @@ class CreatePenulisTable extends Migration
         Schema::create('penulis', function (Blueprint $table) {
             $table->integer('id_penulis',20)->primaryKey();
             $table->unsignedBigInteger('user_id');
-            $table->string('nama',50);
-            $table->string('tentang');
-            $table->string('image');
-
+            $table->string('nama',50)->nullable();
+            $table->string('tentang')->nullable();
+            $table->string('image')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade'); 
             $table->timestamps();
         });

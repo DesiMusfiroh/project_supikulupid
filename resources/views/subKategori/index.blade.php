@@ -1,4 +1,4 @@
-@extends('template-admin.template')
+@extends('template.admin')
 
 @section('header')
 
@@ -143,7 +143,7 @@
     });
 </script>
 
-<!-- Modal EDIT PENYAKIT -->
+<!-- Modal EDIT  -->
 <div class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="edit_subkategori">
     <div class="modal-dialog modal-lg-12" >
       <div class="modal-content">
