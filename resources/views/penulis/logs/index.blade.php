@@ -1,45 +1,45 @@
-@extends('layouts.penulis')
-
-@section('breadcrumb')
-    <h3 class="text-themecolor">Riwayat Aktivitas</h3>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-        <li class="breadcrumb-item active">Aktivitas</li>
-    </ol>
-@endsection
+@extends('layouts.penulis.master')
 
 @section('content')
-<div class="card p-4">
 
-    <div class="card-header">
-        <h4>Riwayat Aktivitas</h4>
+<section class="section">
+    <div class="section-header">
+        <h1>Aktivitas Saya</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+            <div class="breadcrumb-item">Aktivitas</div>
+        </div>
     </div>
-    <div class="bady-body">
-        <table class="table table-striped table-bordered" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Judul</th>
-                    <th class="text-center">Pesan</th>
-                    <th class="text-center">Tanggal Kirim</th>
-                    <th class="text-center">Tanggal Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-               @foreach($logs as $no => $value)
+
+    <div class="section-body">
+        <div class="card">
+        
+            <table class="table table-striped" width="100%" cellspacing="0">
+                <thead>
                     <tr>
-                        <td class="text-center">{{$no+1}}</td>
-                        <td class="text-center">{{$value->status}}</td>
-                        <td>{{$value->judul}}</td>
-                        <td>{{$value->pesan}}</td>
-                        <td class="text-center">{{$value->created_at}}</td>
-                        <td class="text-center">@if ($value->created_at != $value->updated_at) {{$value->updated_at}} @else - @endif</td>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Judul</th>
+                        <th class="text-center">Pesan</th>
+                        <th class="text-center">Tanggal Kirim</th>
+                        <th class="text-center">Tanggal Aksi</th>
                     </tr>
-               @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach($logs as $no => $value)
+                        <tr>
+                            <td class="text-center">{{$no+1}}</td>
+                            <td class="text-center">{{$value->status}}</td>
+                            <td>{{$value->judul}}</td>
+                            <td>{{$value->pesan}}</td>
+                            <td class="text-center">{{$value->created_at}}</td>
+                            <td class="text-center">@if ($value->created_at != $value->updated_at) {{$value->updated_at}} @else - @endif</td>
+                        </tr>
+                @endforeach
+                </tbody>
+            </table>  
+        </div>
     </div>
-</div>
+</section>
 
 @stop

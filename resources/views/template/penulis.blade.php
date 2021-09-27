@@ -67,6 +67,8 @@
                     <ul id="sidebarnav">
                         <li> <a class="waves-effect waves-dark" href="/home" aria-expanded="false"><i class="mdi mdi-gauge" active></i><span class="hide-menu">Dashboard</span></a></li>
                         <li> <a class="waves-effect waves-dark" href="/postingan_penulis" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Postingan</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/logs_penulis" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Riwayat Aktivitas</span></a></li>
+                        <li> <a class="waves-effect waves-dark" href="/profil_penulis" aria-expanded="false"><i class="mdi mdi-emoticon"></i><span class="hide-menu">Profil Penulis</span></a></li>
                     </ul>
                 </nav>
             </div>

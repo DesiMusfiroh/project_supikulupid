@@ -1,7 +1,7 @@
 <?php
     use App\Models\Postingan;
 ?>
-@extends('layouts.penulis')
+@extends('layouts.penulis.master')
 
 @section('breadcrumb')
     <h3 class="text-themecolor">Daftar Postingan</h3>
