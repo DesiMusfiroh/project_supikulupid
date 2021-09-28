@@ -9,6 +9,7 @@ use App\Models\SubKategori;
 use App\Models\Log;
 use Illuminate\Support\Facades\Storage;
 use Auth;
+use Carbon\Carbon;
 
 class PostinganController extends Controller
 {
@@ -85,4 +86,53 @@ class PostinganController extends Controller
         $postingan = Postingan::all();
         return view('admin.postingan.all',compact('postingan'));
     }
+
+    public function adminCreate() {
+        $kategori = Kategori::all();
+        $sub_kategori = SubKategori::all();
+        return view('admin.postingan.create',compact('kategori','sub_kategori'));
+    }
+
+    public function adminStore(Request $request) {
+        $request->validate([
+            'judul' => 'required',
+            'kategori_id' => 'required', 
+            'isi' => 'required',
+            'gambar' => 'required|file|image|mimes:png,jpg,jpeg',
+        ]);
+  
+        $file = $request->file('gambar');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $upload = Storage::putFileAs('public/images',$request->file('gambar'),$nama_file);
+
+        $postingan = Postingan::create([
+            'judul' => $request->judul,
+            'user_id' => Auth::user()->id,
+            'kategori_id' => $request->kategori_id,
+            'subKategori_id' => $request->subkategori_id,
+            'isi' => $request->isi,
+            'gambar' => $nama_file,
+            'status' => 'edited',
+            'published_at' => null
+        ]);
+        return redirect()->route('postingan.admin')->with('success','Postingan baru berhasil disimpan !');
+    }
+
+    public function adminEdit($id) {
+        $postingan = Postingan::findOrFail($id);
+        $kategori = Kategori::all();
+        $sub_kategori = SubKategori::all();
+        return view('admin.postingan.edit', compact('postingan','kategori','sub_kategori'));
+    }
+
+    public function publish($id) {
+        $postingan = Postingan::findOrFail($id);
+        $date = Carbon::now()->format('Y-m-d H:i:s');
+        $postingan->update([
+            'status' => 'published',
+            'published_at' => $date,
+        ]);
+        return redirect()->back()->with('success','Postingan anda berhasil dipublish!');
+    }
+
 }

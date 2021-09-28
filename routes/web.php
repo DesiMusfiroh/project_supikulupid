@@ -58,15 +58,17 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::patch('/subkategori/update', [SubKategoriController::class, 'update'])->name('subkategori.update');
     Route::get('/subkategori/{id}',[SubKategoriController::class, 'destroy'])->name('subkategori.delete');
 
+    // postingan admin 
+    Route::get('/postingan_admin',[AdminController::class, 'postingan'])->name('postingan.admin');
+    Route::get('/postingan_admin/create',[PostinganController::class, 'adminCreate'])->name('postingan_admin.create');
+    Route::post('/postingan_admin/store',[PostinganController::class, 'adminStore'])->name('postingan_admin.store');
+    Route::get('/postingan_admin/{id}',[PostinganController::class, 'adminEdit'])->name('postingan_admin.edit');
+    Route::get('/postingan/publish/{id}',[PostinganController::class, 'publish'])->name('postingan.publish');
+
     // postingan penulis di admin
     Route::get('/postingan_all', [PostinganController::class, 'indexAll'])->name('postingan.all');
-    // Route::get('/postingan',[PostinganController::class, 'index'])->name('postingan');
-
-    //Admin Postingan
-    Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
-    Route::get('/tambahPostingan',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');    
+    Route::get('/postingan/detail/{id}',[PostinganController::class, 'detail'])->name('postingan.detail');
 
     // aktivitas admin
     Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin');
-
 });  

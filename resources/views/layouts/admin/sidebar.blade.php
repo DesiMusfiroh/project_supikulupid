@@ -11,11 +11,11 @@
           <li class="{{(request()->is('/home')) ? 'active' : ''}}" ><a class="nav-link" href="/home"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
           <li class="menu-header">Postingan</li>
-          <li class="nav-item dropdown {{(request()->is('penulis/postingan')) ? 'active' : ''}}">
+          <li class="nav-item dropdown {{(request()->is('postingan_admin')) ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Postingan Admin</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="/postingan/create">Buat Postingan</a></li>
-              <li><a class="nav-link" href="/postingan_penulis">Riwayat Postingan Admin</a></li>
+              <li><a class="nav-link" href="/postingan_admin/create">Buat Postingan</a></li>
+              <li><a class="nav-link" href="/postingan_admin">Riwayat Postingan Admin</a></li>
             </ul>
           </li>
           <li class="{{(request()->is('postingan_all')) ? 'active' : ''}}"><a class="nav-link" href="/postingan_all"><i class="fas fa-pencil-ruler"></i> <span>Postingan Penulis</span></a></li>
