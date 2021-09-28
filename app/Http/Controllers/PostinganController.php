@@ -79,4 +79,10 @@ class PostinganController extends Controller
         ]);
         return redirect()->back()->with('success','Postingan anda berhasil dikirim, mohon menunggu persetujuan admin!');
     }
+
+    // manage postingan admin
+    public function indexAll() {
+        $postingan = Postingan::all();
+        return view('admin.postingan.all',compact('postingan'));
+    }
 }

@@ -18,8 +18,8 @@
               <li><a class="nav-link" href="/postingan_penulis">Riwayat Postingan Admin</a></li>
             </ul>
           </li>
-          <li class="{{(request()->is('logs_penulis')) ? 'active' : ''}}"><a class="nav-link" href="/"><i class="fas fa-pencil-ruler"></i> <span>Postingan Penulis</span></a></li>
-          <li class="{{(request()->is('logs_penulis')) ? 'active' : ''}}"><a class="nav-link" href="/logs_admin"><i class="fas fa-pencil-ruler"></i> <span>Aktivitas</span></a></li>
+          <li class="{{(request()->is('postingan_all')) ? 'active' : ''}}"><a class="nav-link" href="/postingan_all"><i class="fas fa-pencil-ruler"></i> <span>Postingan Penulis</span></a></li>
+          <li class="{{(request()->is('logs_admin')) ? 'active' : ''}}"><a class="nav-link" href="/logs_admin"><i class="fas fa-pencil-ruler"></i> <span>Aktivitas</span></a></li>
         
           <li class="menu-header">Kategori</li>
           <li class="{{(request()->is('kategori')) ? 'active' : ''}}"><a class="nav-link" href="/kategori"><i class="fa fa-cog"></i> <span>Kategori</span></a></li>

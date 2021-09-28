@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SubKategoriController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,13 +25,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', function(){
-    if (Auth::user()->role == 'admin'){
-        return view('admin.index');
-    } else if (Auth::user()->role == 'penulis'){
-        return view('penulis.index');
-    }
-});
+Route::get('/home', [HomeController::class , 'index'])->name('home');
 
 // route penulis
 Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
@@ -64,8 +59,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/subkategori/{id}',[SubKategoriController::class, 'destroy'])->name('subkategori.delete');
 
     // postingan penulis di admin
+    Route::get('/postingan_all', [PostinganController::class, 'indexAll'])->name('postingan.all');
     // Route::get('/postingan',[PostinganController::class, 'index'])->name('postingan');
-
 
     //Admin Postingan
     Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
