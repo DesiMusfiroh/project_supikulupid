@@ -68,7 +68,7 @@ class PostinganController extends Controller
     public function send($id) {
         $postingan = Postingan::findOrFail($id);
         $postingan->update([
-            'status' => 'sent',
+            'status' => 'processed',
         ]);
         Log::create([
             'user_id' => Auth::user()->id,
