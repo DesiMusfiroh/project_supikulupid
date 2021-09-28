@@ -46,5 +46,5 @@ Route::get('/subkategori/{id_subkategori}',[App\Http\Controllers\SubKategoriCont
 
 //Admin Postingan
 Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
-Route::get('/tambahPostingan',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');
+Route::get('/postingan/tambah',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');
 // Route::get('/tambahPostingan/{id}')

@@ -9,7 +9,11 @@ use App\Models\SubKategori;
 
 class PostinganController extends Controller
 {
-    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $postingan = Postingan::all();
