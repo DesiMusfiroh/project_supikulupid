@@ -19,7 +19,18 @@ use App\Http\Controllers\SubKategoriController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return view('main.index');
+});
+// main pages
+Route::get('/berita', function () {
+    // return view('welcome');
+    return view('main.berita');
+});
+
+Route::get('/post', function () {
+    // return view('welcome');
+    return view('main.post');
 });
 
 Auth::routes();
@@ -74,4 +85,5 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     // aktivitas admin
     Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin');
 
+    
 });  
