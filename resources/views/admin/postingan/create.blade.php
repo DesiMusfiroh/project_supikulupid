@@ -2,16 +2,7 @@
     use App\Models\SubKategori;
     use App\Models\Kategori;
 ?>
-@extends('layouts.penulis.master')
-
-@section('breadcrumb')
-    <h3 class="text-themecolor">Buat Postingan Baru</h3>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-        <li class="breadcrumb-item">Postingan</li>
-        <li class="breadcrumb-item active">Tambah</li>
-    </ol>
-@endsection
+@extends('layouts.admin.master')
 
 @section('content')
 <section class="section">

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PenulisController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SubKategoriController;
@@ -35,13 +36,7 @@ Route::get('/post', function () {
 
 Auth::routes();
 
-Route::get('/home', function(){
-    if (Auth::user()->role == 'admin'){
-        return view('admin.index');
-    } else if (Auth::user()->role == 'penulis'){
-        return view('penulis.index');
-    }
-});
+Route::get('/home',[HomeController::class, 'index'])->name('home');
 
 // route penulis
 Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
@@ -73,17 +68,22 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::post('/subkategori/store', [SubKategoriController::class, 'store'])->name('subkategori.store');
     Route::patch('/subkategori/update', [SubKategoriController::class, 'update'])->name('subkategori.update');
     Route::get('/subkategori/{id}',[SubKategoriController::class, 'destroy'])->name('subkategori.delete');
+    
+    // postingan admin 
+    Route::get('/postingan_admin',[AdminController::class, 'postingan'])->name('postingan.admin');
+    Route::get('/postingan_admin/create',[PostinganController::class, 'adminCreate'])->name('postingan_admin.create');
+    Route::post('/postingan_admin/store',[PostinganController::class, 'adminStore'])->name('postingan_admin.store');
+    Route::get('/postingan_admin/{id}',[PostinganController::class, 'adminEdit'])->name('postingan_admin.edit');
+    Route::get('/postingan/publish/{id}',[PostinganController::class, 'publish'])->name('postingan.publish');
 
     // postingan penulis di admin
-    // Route::get('/postingan',[PostinganController::class, 'index'])->name('postingan');
-
+    Route::get('/postingan_all', [PostinganController::class, 'indexAll'])->name('postingan.all');
 
     //Admin Postingan
     Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
     Route::get('/tambahPostingan',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');    
+    Route::get('/postingan/detail/{id}',[PostinganController::class, 'detail'])->name('postingan.detail');
 
     // aktivitas admin
-    Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin');
-
-    
+    Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin'); 
 });  
