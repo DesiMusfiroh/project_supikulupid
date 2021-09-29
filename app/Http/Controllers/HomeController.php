@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Postingan;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.index');
+        if (Auth::user()->role == 'admin'){
+            $postingan_processed = Postingan::where('status','=','processed')->get();
+            return view('admin.index', compact('postingan_processed'));
+        } else if (Auth::user()->role == 'penulis'){
+            return view('penulis.index');
+        }
     }
 }

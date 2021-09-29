@@ -11,15 +11,15 @@
           <li class="{{(request()->is('/home')) ? 'active' : ''}}" ><a class="nav-link" href="/home"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
 
           <li class="menu-header">Postingan</li>
-          <li class="nav-item dropdown {{(request()->is('penulis/postingan')) ? 'active' : ''}}">
+          <li class="nav-item dropdown {{(request()->is('postingan_admin')) ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Postingan Admin</span></a>
             <ul class="dropdown-menu">
-              <li><a class="nav-link" href="/postingan/create">Buat Postingan</a></li>
-              <li><a class="nav-link" href="/postingan_penulis">Riwayat Postingan Admin</a></li>
+              <li><a class="nav-link" href="/postingan_admin/create">Buat Postingan</a></li>
+              <li><a class="nav-link" href="/postingan_admin">Riwayat Postingan Admin</a></li>
             </ul>
           </li>
-          <li class="{{(request()->is('logs_penulis')) ? 'active' : ''}}"><a class="nav-link" href="/"><i class="fas fa-pencil-ruler"></i> <span>Postingan Penulis</span></a></li>
-          <li class="{{(request()->is('logs_penulis')) ? 'active' : ''}}"><a class="nav-link" href="/logs_admin"><i class="fas fa-pencil-ruler"></i> <span>Aktivitas</span></a></li>
+          <li class="{{(request()->is('postingan_all')) ? 'active' : ''}}"><a class="nav-link" href="/postingan_all"><i class="fas fa-pencil-ruler"></i> <span>Postingan Penulis</span></a></li>
+          <li class="{{(request()->is('logs_admin')) ? 'active' : ''}}"><a class="nav-link" href="/logs_admin"><i class="fas fa-pencil-ruler"></i> <span>Aktivitas</span></a></li>
         
           <li class="menu-header">Kategori</li>
           <li class="{{(request()->is('kategori')) ? 'active' : ''}}"><a class="nav-link" href="/kategori"><i class="fa fa-cog"></i> <span>Kategori</span></a></li>

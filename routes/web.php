@@ -30,7 +30,7 @@ Route::get('/berita', function () {
 
 Route::get('/post', function () {
     // return view('welcome');
-    return view('main.post');
+    return view('main.berita');
 });
 
 Auth::routes();
