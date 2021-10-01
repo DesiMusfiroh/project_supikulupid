@@ -37,6 +37,7 @@
 <body>
 
   <div id="app">
+    @include('sweetalert::alert')
     <div class="main-wrapper">
 
       @include('layouts.admin.header')

@@ -27,7 +27,7 @@
 
     <div class="card-header">
         <h4>Daftar Postingan</h4>
-        <a href="{{route('postingan.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a>
+        <a href="{{route('postingan_admin.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a>
     </div>
     <div class="bady-body">
         <table class="table table-striped table-bordered" width="100%" cellspacing="0">

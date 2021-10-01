@@ -9,15 +9,15 @@ use App\Models\SubKategori;
 use App\Models\Log;
 use Illuminate\Support\Facades\Storage;
 use Auth;
+use Alert;
 use Carbon\Carbon;
 
 class PostinganController extends Controller
 {
     // manage postingan penulis
     public function create() {
-        $kategori = Kategori::all();
-        $sub_kategori = SubKategori::all();
-        return view('penulis.postingan.create',compact('kategori','sub_kategori'));
+        $kategori = Kategori::pluck("nama","id_kategori");
+        return view('penulis.postingan.create',compact('kategori'));
     }
 
     public function store(Request $request) {
@@ -27,10 +27,9 @@ class PostinganController extends Controller
             'isi' => 'required',
             'gambar' => 'required|file|image|mimes:png,jpg,jpeg',
         ]);
-  
-        $file = $request->file('gambar');
-        $nama_file = time()."_".$file->getClientOriginalName();
-        $upload = Storage::putFileAs('public/images',$request->file('gambar'),$nama_file);
+
+        $nama_file = time().'.'.$request->gambar->extension();  
+        $request->gambar->move(public_path('images'), $nama_file);
 
         $postingan = Postingan::create([
             'judul' => $request->judul,
@@ -47,9 +46,8 @@ class PostinganController extends Controller
 
     public function show($id) {
         $postingan = Postingan::findOrFail($id);
-        $kategori = Kategori::all();
-        $sub_kategori = SubKategori::all();
-        return view('penulis.postingan.edit', compact('postingan','kategori','sub_kategori'));
+        $kategori = Kategori::pluck("nama","id_kategori");
+        return view('penulis.postingan.edit', compact('postingan','kategori'));
     }
 
     public function update(Request $request) {
@@ -58,10 +56,9 @@ class PostinganController extends Controller
         return redirect()->back()->with('success','Berhasil menyimpan perubahan!');
     }
 
-    public function delete(Request $request)
-    {
+    public function delete(Request $request) {
+        dd($request->id);
         $postingan = Postingan::findOrFail($request->id);
-        dd($postingan);
 		$postingan->delete();
 		return redirect()->back()->with('success','Postingan berhasil di hapus!');
     }
@@ -88,9 +85,8 @@ class PostinganController extends Controller
     }
 
     public function adminCreate() {
-        $kategori = Kategori::all();
-        $sub_kategori = SubKategori::all();
-        return view('admin.postingan.create',compact('kategori','sub_kategori'));
+        $kategori = Kategori::pluck("nama","id_kategori");
+        return view('admin.postingan.create',compact('kategori'));
     }
 
     public function adminStore(Request $request) {
@@ -101,9 +97,8 @@ class PostinganController extends Controller
             'gambar' => 'required|file|image|mimes:png,jpg,jpeg',
         ]);
   
-        $file = $request->file('gambar');
-        $nama_file = time()."_".$file->getClientOriginalName();
-        $upload = Storage::putFileAs('public/images',$request->file('gambar'),$nama_file);
+        $nama_file = time().'.'.$request->gambar->extension();  
+        $request->gambar->move(public_path('images'), $nama_file);
 
         $postingan = Postingan::create([
             'judul' => $request->judul,
@@ -120,9 +115,8 @@ class PostinganController extends Controller
 
     public function adminEdit($id) {
         $postingan = Postingan::findOrFail($id);
-        $kategori = Kategori::all();
-        $sub_kategori = SubKategori::all();
-        return view('admin.postingan.edit', compact('postingan','kategori','sub_kategori'));
+        $kategori = Kategori::pluck("nama","id_kategori");
+        return view('admin.postingan.edit', compact('postingan','kategori'));
     }
 
     public function publish($id) {
@@ -135,4 +129,29 @@ class PostinganController extends Controller
         return redirect()->back()->with('success','Postingan anda berhasil dipublish!');
     }
 
+
+    // controller ajax 
+    public function getSubKategori($id)  {
+        $subkategori = SubKategori::where("kategori_id",$id)->pluck("nama","id_subkategori");
+        return json_encode($subkategori);
+    }
+
+    public function uploadImageEditor(Request $request) {    
+        if($request->hasFile('upload')) {
+            $originName = $request->file('upload')->getClientOriginalName();
+            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            $extension = $request->file('upload')->getClientOriginalExtension();
+            $fileName = $fileName.'_'.time().'.'.$extension;
+        
+            $request->file('upload')->move(public_path('images'), $fileName);
+    
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('images/'.$fileName); 
+            $msg = 'Image uploaded successfully'; 
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+                
+            @header('Content-type: text/html; charset=utf-8'); 
+            echo $response;
+        }
+    }  
 }

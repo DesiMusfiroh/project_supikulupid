@@ -38,6 +38,11 @@ Auth::routes();
 
 Route::get('/home',[HomeController::class, 'index'])->name('home');
 
+
+// route admin and penulis
+Route::post('/postingan/delete',[PostinganController::class, 'delete'])->name('postingan.delete');
+Route::patch('/postingan/update',[PostinganController::class, 'update'])->name('postingan.update');
+
 // route penulis
 Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
     Route::get('/postingan_penulis',[PenulisController::class, 'postingan'])->name('postingan.penulis');
@@ -49,8 +54,6 @@ Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
     Route::get('/postingan/create',[PostinganController::class, 'create'])->name('postingan.create');
     Route::get('/postingan/{id}',[PostinganController::class, 'show'])->name('postingan.show');
     Route::post('/postingan/store',[PostinganController::class, 'store'])->name('postingan.store');
-    Route::patch('/postingan/update',[PostinganController::class, 'update'])->name('postingan.update');
-    Route::post('/postingan/delete',[PostinganController::class, 'delete'])->name('postingan.delete');
     Route::get('/postingan/send/{id}',[PostinganController::class, 'send'])->name('postingan.send');
 });
 
@@ -80,10 +83,15 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/postingan_all', [PostinganController::class, 'indexAll'])->name('postingan.all');
 
     //Admin Postingan
-    Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
-    Route::get('/tambahPostingan',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');    
+    Route::get('/postingan',[PostinganController::class, 'index'])->name('postingan');
+    Route::get('/tambahPostingan',[PostinganController::class, 'create'])->name('tambahPostingan');    
     Route::get('/postingan/detail/{id}',[PostinganController::class, 'detail'])->name('postingan.detail');
 
     // aktivitas admin
     Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin'); 
 });  
+
+// route ajax
+Route::get('postingan/create/getsubkategori/{id}', [PostinganController::class, 'getSubKategori']);
+Route::get('postingan_admin/create/getsubkategori/{id}', [PostinganController::class, 'getSubKategori']);
+Route::post('upload_image_editor',[PostinganController::class, 'uploadImageEditor'])->name('upload.image');
