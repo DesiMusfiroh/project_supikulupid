@@ -12,7 +12,7 @@ class SubKategori extends Model
     use HasFactory;
 
     protected $table = "sub_kategoris";
-    protected $primaryKey = "id_subkategoris";
+    protected $primaryKey = "id_subkategori";
 
     public function kategori()
     {
@@ -21,6 +21,6 @@ class SubKategori extends Model
 
     public function postingan()
     {
-        return $this->hasMany(Postingan::class,'subkategori_id');
+        return $this->hasMany(Postingan::class,'subkategori_id', 'id_subkategori');
     }
 }

@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PenulisController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostinganController;
+use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\SubKategoriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,32 +24,68 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function(){
+    if (Auth::user()->role == 'admin'){
+        return view('admin.index');
+    } else if (Auth::user()->role == 'penulis'){
+        return view('penulis.index');
+    }
+});
 
-//admin
-Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
+// route penulis
+Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
+    Route::get('/postingan_penulis',[PenulisController::class, 'postingan'])->name('postingan.penulis');
+    Route::get('/logs_penulis',[PenulisController::class, 'logs'])->name('logs.penulis');
+    Route::get('/profil/edit',[PenulisController::class, 'profil'])->name('profil.penulis');
+    Route::patch('/profil/update',[PenulisController::class, 'updateProfil'])->name('profil.update');
 
-Auth::routes();
+    // postingan penulis
+    Route::get('/postingan/create',[PostinganController::class, 'create'])->name('postingan.create');
+    Route::get('/postingan/{id}',[PostinganController::class, 'show'])->name('postingan.show');
+    Route::post('/postingan/store',[PostinganController::class, 'store'])->name('postingan.store');
+    Route::patch('/postingan/update',[PostinganController::class, 'update'])->name('postingan.update');
+    Route::post('/postingan/delete',[PostinganController::class, 'delete'])->name('postingan.delete');
+    Route::get('/postingan/send/{id}',[PostinganController::class, 'send'])->name('postingan.send');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+// route admin  
+Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){ 
+    // admin kategori
+    Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori');
+    Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+    Route::patch('/kategori/update', [KategoriController::class, 'update'])->name('kategori.update');
+    Route::get('/kategori/{id}',[KategoriController::class, 'destroy'])->name('kategori.delete');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // admin sub kategori
+    Route::get('/subkategori',[SubKategoriController::class, 'index'])->name('subkategori');
+    Route::post('/subkategori/store', [SubKategoriController::class, 'store'])->name('subkategori.store');
+    Route::patch('/subkategori/update', [SubKategoriController::class, 'update'])->name('subkategori.update');
+    Route::get('/subkategori/{id}',[SubKategoriController::class, 'destroy'])->name('subkategori.delete');
 
-// admin kategori
-Route::get('/kategori', [App\Http\Controllers\KategoriController::class, 'index'])->name('kategori');
-Route::post('/tambahKategori', [App\Http\Controllers\KategoriController::class, 'store'])->name('tambahKategori');
-Route::patch('/kategori/update', [App\Http\Controllers\KategoriController::class, 'update'])->name('updateKategori');
-Route::get('/kategori/{id_kategori}',[App\Http\Controllers\KategoriController::class, 'destroy'])->name('deleteKategori');
+    // postingan penulis di admin
+    // Route::get('/postingan',[PostinganController::class, 'index'])->name('postingan');
 
-//admin sub kategori
-Route::get('/subKategori',[App\Http\Controllers\SubKategoriController::class, 'index'])->name('subKategori');
-Route::post('/tambahSubKategori', [App\Http\Controllers\SubKategoriController::class, 'store'])->name('tambahSubKategori');
-Route::patch('/subKategori/update', [App\Http\Controllers\SubKategoriController::class, 'update'])->name('updateSubKategori');
-Route::get('/subkategori/{id_subkategori}',[App\Http\Controllers\SubKategoriController::class, 'destroy'])->name('deleteSubKategori');
 
-//Admin Postingan
-Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
-Route::get('/postingan/tambah',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');
+    //Admin Postingan
+    Route::get('/admin/postingan',[App\Http\Controllers\AdminPostinganController::class, 'indexAdmin'])->name('adminPostingan');
+    Route::get('/admin/data_tulisan',[App\Http\Controllers\AdminPostinganController::class, 'dataTulisan'])->name('dataTulisan'); 
+    Route::get('/admin/tambahPostingan',[App\Http\Controllers\AdminPostinganController::class, 'createAdmin'])->name('tambahPostingan');
+    Route::post('/admin/postingan/create',[App\Http\Controllers\AdminPostinganController::class, 'subCat'])->name('createSubKategori');
+    Route::post('/admin/postingan/store',[App\Http\Controllers\AdminPostinganController::class, 'storeAdmin'])->name('storePostingan');  
+
+    Route::get('/admin/send/{id}',[App\Http\Controllers\AdminPostinganController::class, 'sendAdmin'])->name('sendPostingan');
+    Route::get('/admin/publish/{id}',[App\Http\Controllers\AdminPostinganController::class, 'publishAdmin'])->name('publishPostingan');
+    Route::get('/admin/reject/{id}',[App\Http\Controllers\AdminPostinganController::class, 'rejectPostingan'])->name('rejectPostingan');
+
+
+    // aktivitas admin
+    Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin');
+
+
+// //Admin Postingan
+// Route::get('/postingan',[App\Http\Controllers\PostinganController::class, 'index'])->name('postingan');
+// Route::get('/postingan/tambah',[App\Http\Controllers\PostinganController::class, 'create'])->name('tambahPostingan');
 // Route::get('/tambahPostingan/{id}')
+
+});  
