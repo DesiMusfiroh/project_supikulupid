@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Postingan;
+use App\Models\Log;
+use App\Models\Penulis;
 
 class User extends Authenticatable
 {
@@ -47,5 +49,14 @@ class User extends Authenticatable
     public function postingan()
     {
         return $this->hasMany(Postingan::class);
+    }
+    public function log()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function penulis()
+    {
+        return $this->hasOne(Penulis::class);
     }
 }

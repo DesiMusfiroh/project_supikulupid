@@ -18,7 +18,7 @@
           <div class="col-12 col-sm-6 col-md-6 col-lg-3">
             <article class="article article-style-b">
               <div class="article-header">
-                <div class="article-image" data-background="../assets/img/news/img13.jpg">
+                <div class="article-image" data-background="../images/{{$value->gambar}}">
                 </div>
               </div>
               <div class="article-details">

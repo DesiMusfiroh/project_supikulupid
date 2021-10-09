@@ -1,79 +1,69 @@
-<?php
-    use App\Models\Postingan;
-?>
 @extends('layouts.penulis.master')
 
-@section('breadcrumb')
-    <h3 class="text-themecolor">Daftar Postingan</h3>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-        <li class="breadcrumb-item active">Postingan</li>
-    </ol>
-@endsection
-
 @section('content')
-<div class="card p-4">
-   
-    @if ($message = Session::get('success'))
-      <div class="alert alert-success alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-          <strong>{{ $message }}</strong>
-      </div>
-    @endif
-
-    @if ($message = Session::get('error'))
-      <div class="alert alert-danger alert-block">
-        <button type="button" class="close" data-dismiss="alert">×</button>    
-        <strong>{{ $message }}</strong>
-      </div>
-    @endif
-
-    <div class="card-header">
-        <h4>Daftar Postingan</h4>
-        <a href="{{route('postingan.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a>
+<section class="section">
+    <div class="section-header">
+        <a href="{{route('postingan.create')}}" class="btn btn-success mr-3"> <i class="fa fa-plus mr-2 "></i> Tambah </a>
+        <h1>Postingan</h1>
+        <div class="section-header-breadcrumb">
+            <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
+            <div class="breadcrumb-item">Postingan</div>
+        </div>
     </div>
-    <div class="bady-body">
-        <table class="table table-striped table-bordered" width="100%" cellspacing="0">
-            <thead>
-                <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Kategori</th>
-                    <th class="text-center">Sub Kategori</th>
-                    <th class="text-center">Judul</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-               @foreach($postingan as $no => $value)
+
+    <div class="section-body">
+        <div class="card">
+            <table  class="table table-striped" width="100%" cellspacing="0">
+                <thead>
                     <tr>
-                        <td class="text-center">{{$no+1}}</td>
-                        <td>{{$value->kategori->nama}}</td>
-                        <td>{{$value->sub_kategori->nama}}</td>
-                        <td>{{$value->judul}}</td>
-                        <td>{{$value->status}}</td>
-                        <td class="text-right">
-                            @if ($value->status == 'edited')
-                                <a href="{{route('postingan.send', $value->id_postingan)}}" >
-                                    <button class="btn btn-info btn-action"> <i class="fa fa-send"></i> </button>
-                                </a>     
-                            @endif  
-                            <a href="{{route('postingan.show', $value->id_postingan)}}">
-                                <button class="btn btn-warning btn-action"> <i class="fa fa-edit"></i> </button>
-                            </a>                    
-                            <button class="btn btn-danger btn-action" data-toggle="modal" data-target=".delete_modal"
-                                id="delete"
-                                data-id_delete="{{ $value->id }}"
-                                data-judul_delete="{{ $value->judul }}">
-                                <i class="fa fa-trash"></i>                                       
-                            </button>
-                        </td>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Kategori</th>
+                        <th class="text-center">Sub Kategori</th>
+                        <th class="text-center">Judul</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Aksi</th>
                     </tr>
-               @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach($postingan as $no => $value)
+                        <tr>
+                            <td class="text-center">{{$no+1}}</td>
+                            <td>{{$value->kategori->nama}}</td>
+                            <td>{{$value->sub_kategori->nama}}</td>
+                            <td>{{$value->judul}}</td>
+                            <td> 
+                                @if ($value->status == 'edited')
+                                <div class="badge badge-pill badge-warning mb-1 float-right">{{$value->status}}</div> 
+                                @elseif ($value->status == 'published')
+                                <div class="badge badge-pill badge-success mb-1 float-right">{{$value->status}}</div>
+                                @else 
+                                <div class="badge badge-pill badge-primary mb-1 float-right">{{$value->status}}</div>
+                                @endif
+                            </td>
+                            <td class="text-right">
+                                @if ($value->status == 'edited')
+                                    <a href="{{route('postingan.send', $value->id_postingan)}}" >
+                                        <button class="btn btn-info btn-action btn-sm"> <i class="fa fa-send"></i> Kirim </button>
+                                    </a>     
+                                @endif  
+                                <a href="{{route('postingan.show', $value->id_postingan)}}">
+                                    <button class="btn btn-warning btn-action  btn-sm"> <i class="fa fa-edit"></i> </button>
+                                </a>                    
+                                <button class="btn btn-danger btn-action  btn-sm" data-toggle="modal" data-target=".delete_modal"
+                                    id="delete"
+                                    data-id_delete="{{ $value->id }}"
+                                    data-judul_delete="{{ $value->judul }}">
+                                    <i class="fa fa-trash"></i>                                       
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 
 <!-- Delete Modal -->
 <div class="modal fade delete_modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

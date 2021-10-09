@@ -16,6 +16,6 @@ class Penulis extends Model
    
     public function user()
     {
-        return $this->hasOne('App\User');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

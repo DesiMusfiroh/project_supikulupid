@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
     Route::get('/postingan/{id}',[PostinganController::class, 'show'])->name('postingan.show');
     Route::post('/postingan/store',[PostinganController::class, 'store'])->name('postingan.store');
     Route::get('/postingan/send/{id}',[PostinganController::class, 'send'])->name('postingan.send');
+
+    // pengaturan_penulis
+    Route::get('/pengaturan_penulis',[PenulisController::class, 'pengaturan'])->name('pengaturan.penulis');
+    Route::post('change_password_penulis', [PenulisController::class, 'changePassword'])->name('change.password.penulis');
 });
 
 
@@ -89,9 +93,16 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
 
     // aktivitas admin
     Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin'); 
+
+    // pengaturan admin
+    Route::get('/pengaturan_admin',[AdminController::class, 'pengaturan'])->name('pengaturan.admin');
+    Route::post('change_password_admin', [AdminController::class, 'changePassword'])->name('change.password.admin');
 });  
 
 // route ajax
 Route::get('postingan/create/getsubkategori/{id}', [PostinganController::class, 'getSubKategori']);
 Route::get('postingan_admin/create/getsubkategori/{id}', [PostinganController::class, 'getSubKategori']);
 Route::post('upload_image_editor',[PostinganController::class, 'uploadImageEditor'])->name('upload.image');
+
+Route::get('getnotificationadmin', [AdminController::class, 'getNotification']);
+Route::get('getnotificationpenulis', [PenulisController::class, 'getNotification']);
