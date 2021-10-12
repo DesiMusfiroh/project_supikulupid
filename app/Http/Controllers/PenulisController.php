@@ -13,6 +13,7 @@ use App\Models\Log;
 use App\Models\Penulis;
 use Illuminate\Support\Facades\Storage;
 use Auth;
+use Alert;
 
 class PenulisController extends Controller
 {
@@ -27,7 +28,7 @@ class PenulisController extends Controller
     }
 
     public function logs() {
-        $logs = Log::where('user_id','=', Auth::user()->id)->get();
+        $logs = Log::where('user_id','=', Auth::user()->id)->orderBy('updated_at','DESC')->get();
         return view('penulis.logs.index',compact('logs'));
     }
 
@@ -37,9 +38,23 @@ class PenulisController extends Controller
     }
 
     public function updateProfil(Request $request) {
-        $penulis = Penulis::findOrFail($request->id_penulis);
-        $penulis->update($request->all());
+        $penulis = Penulis::where('id_penulis', $request->id_penulis)->update([
+            'nama' => $request->nama,
+            'tentang' => $request->tentang,
+        ]);
+        Alert::success("Berhasil !", "Profil penulis berhasil disimpan!");
         return redirect()->back()->with('success','Perubahan profil berhasil disimpan!');
+    }
+
+    public function updateImage(Request $request) {
+        $request->validate([
+            'image' => 'required|file|image|mimes:png,jpg,jpeg',
+        ]);
+        $nama_file = time().'.'.$request->image->extension();  
+        $request->image->move(public_path('images'), $nama_file);
+        $penulis = Penulis::where('id_penulis', $request->id_penulis)->update(['image' => $nama_file,]);
+        Alert::success("Berhasil !", "Foto profil baru berhasil disimpan!");
+        return redirect()->back();
     }
 
     public function pengaturan()

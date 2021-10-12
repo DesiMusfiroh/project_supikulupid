@@ -41,7 +41,8 @@ class PostinganController extends Controller
             'status' => 'edited',
             'published_at' => null
         ]);
-        return redirect()->route('postingan.penulis')->with('success','Postingan baru berhasil disimpan !');
+        Alert::success("Berhasil !", "Postingan : $postingan->judul, berhasil disimpan!");
+        return redirect()->route('postingan.penulis');
     }
 
     public function show($id) {
@@ -53,14 +54,15 @@ class PostinganController extends Controller
     public function update(Request $request) {
         $postingan = Postingan::findOrFail($request->id);
         $postingan->update($request->all());
-        return redirect()->back()->with('success','Berhasil menyimpan perubahan!');
+        Alert::success("Berhasil !", "Perubahan berhasil disimpan!");
+        return redirect()->route('postingan.penulis');
     }
 
     public function delete(Request $request) {
-        dd($request->id);
-        $postingan = Postingan::findOrFail($request->id);
+        $postingan = Postingan::findOrFail($request->id_delete);
 		$postingan->delete();
-		return redirect()->back()->with('success','Postingan berhasil di hapus!');
+        Alert::success("Berhasil", "Postingan $postingan->judul telah dihapus!");
+		return redirect()->back();
     }
     
     public function send($id) {

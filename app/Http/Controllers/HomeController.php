@@ -33,8 +33,9 @@ class HomeController extends Controller
             return view('admin.index', compact('postingan_processed'));
         } else if (Auth::user()->role == 'penulis'){
             $user = User::where('id', Auth::user()->id)->first();
-
-            return view('penulis.index', compact('user'));
+            $postingan = Postingan::where('user_id', Auth::user()->id)->get();
+            $logs = Log::where('user_id', Auth::user()->id)->orderBy('updated_at','DESC')->paginate(3);   
+            return view('penulis.index', compact('user', 'postingan','logs'));
         }
     }
 }

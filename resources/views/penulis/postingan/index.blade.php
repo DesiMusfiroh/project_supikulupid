@@ -29,7 +29,7 @@
                         <tr>
                             <td class="text-center">{{$no+1}}</td>
                             <td>{{$value->kategori->nama}}</td>
-                            <td>{{$value->sub_kategori->nama}}</td>
+                            <td> @if ($value->sub_kategori != null)  {{$value->sub_kategori->nama}}@endif</td>
                             <td>{{$value->judul}}</td>
                             <td> 
                                 @if ($value->status == 'edited')
@@ -51,7 +51,7 @@
                                 </a>                    
                                 <button class="btn btn-danger btn-action  btn-sm" data-toggle="modal" data-target=".delete_modal"
                                     id="delete"
-                                    data-id_delete="{{ $value->id }}"
+                                    data-id_delete="{{ $value->id_postingan }}"
                                     data-judul_delete="{{ $value->judul }}">
                                     <i class="fa fa-trash"></i>                                       
                                 </button>
@@ -78,7 +78,7 @@
         <form action="{{route('postingan.delete')}}" method="post">
             @csrf
             <div class="modal-body">
-                <input type="hidden" name="id" value="" id="id_delete" >
+                <input type="hidden" name="id_delete" value="" id="id_delete" >
                 <p>Postingan : <b> <span id="judul_delete"></span> </b> akan di hapus </p>     
             </div>
             <div class="modal-footer">

@@ -49,12 +49,14 @@ Route::group(['middleware' => ['auth', 'checkRole:penulis']],function(){
     Route::get('/logs_penulis',[PenulisController::class, 'logs'])->name('logs.penulis');
     Route::get('/profil/edit',[PenulisController::class, 'profil'])->name('profil.penulis');
     Route::patch('/profil/update',[PenulisController::class, 'updateProfil'])->name('profil.update');
+    Route::patch('/profil/update_image',[PenulisController::class, 'updateImage'])->name('profil.update.image');
 
     // postingan penulis
     Route::get('/postingan/create',[PostinganController::class, 'create'])->name('postingan.create');
     Route::get('/postingan/{id}',[PostinganController::class, 'show'])->name('postingan.show');
     Route::post('/postingan/store',[PostinganController::class, 'store'])->name('postingan.store');
     Route::get('/postingan/send/{id}',[PostinganController::class, 'send'])->name('postingan.send');
+    Route::patch('/postingan/update',[PostinganController::class, 'update'])->name('postingan.update');
 
     // pengaturan_penulis
     Route::get('/pengaturan_penulis',[PenulisController::class, 'pengaturan'])->name('pengaturan.penulis');
