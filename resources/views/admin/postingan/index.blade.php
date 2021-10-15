@@ -63,7 +63,7 @@
                             </a>                    
                             <button class="btn btn-danger btn-action" data-toggle="modal" data-target=".delete_modal"
                                 id="delete"
-                                data-id_delete="{{ $value->id }}"
+                                data-id_delete="{{ $value->id_postingan }}"
                                 data-judul_delete="{{ $value->judul }}">
                                 <i class="fa fa-trash"></i>                                       
                             </button>

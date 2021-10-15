@@ -74,13 +74,13 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/admin/tambahPostingan',[App\Http\Controllers\AdminPostinganController::class, 'createAdmin'])->name('tambahPostingan');
     Route::post('/admin/postingan/create',[App\Http\Controllers\AdminPostinganController::class, 'subCat'])->name('createSubKategori');
     Route::post('/admin/postingan/store',[App\Http\Controllers\AdminPostinganController::class, 'storeAdmin'])->name('storePostingan');  
+    Route::patch('/admin/postingan/update',[App\Http\Controllers\AdminPostinganController::class, 'updateAdmin'])->name('updatePostingan');
     Route::post('/admin/postingan/delete',[App\Http\Controllers\AdminPostinganController::class, 'deleteAdmin'])->name('deletePostingan');
 
     Route::get('/admin/tambahPostingan',[App\Http\Controllers\AdminPostinganController::class, 'createAdmin'])->name('tambahPostingan');
 
 
     Route::get('/admin/postingan{id}',[App\Http\Controllers\AdminPostinganController::class, 'showAdmin'])->name('showPostingan');
-    Route::patch('/admin/update',[App\Http\Controllers\AdminPostinganController::class, 'updateAdmin'])->name('updatePostingan');
 
     Route::get('/admin/data_tulisan',[App\Http\Controllers\AdminPostinganController::class, 'dataTulisan'])->name('dataTulisan'); 
 
