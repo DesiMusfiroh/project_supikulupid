@@ -30,7 +30,7 @@
 
     <div class="card-header">
         <h4>Daftar Postingan</h4>
-        <a href="{{route('postingan.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a>
+        <!-- <agit href="{{route('postingan.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a> -->
     </div>
     <div class="bady-body">
         <table class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -58,7 +58,7 @@
                                     <button class="btn btn-info btn-action"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                 </a>     
                             @endif  
-                            <a href="{{route('postingan.show', $value->id_postingan)}}">
+                            <a href="{{route('showPostingan', $value->id_postingan)}}">
                                 <button class="btn btn-warning btn-action"> <i class="fa fa-edit"></i> </button>
                             </a>                    
                             <button class="btn btn-danger btn-action" data-toggle="modal" data-target=".delete_modal"
@@ -85,7 +85,7 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="{{route('postingan.delete')}}" method="post">
+        <form action="{{route('deletePostingan')}}" method="post">
             @csrf
             <div class="modal-body">
                 <input type="hidden" name="id" value="" id="id_delete" >

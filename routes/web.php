@@ -7,6 +7,7 @@ use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SubKategoriController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,10 +74,21 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::get('/admin/tambahPostingan',[App\Http\Controllers\AdminPostinganController::class, 'createAdmin'])->name('tambahPostingan');
     Route::post('/admin/postingan/create',[App\Http\Controllers\AdminPostinganController::class, 'subCat'])->name('createSubKategori');
     Route::post('/admin/postingan/store',[App\Http\Controllers\AdminPostinganController::class, 'storeAdmin'])->name('storePostingan');  
+    Route::post('/admin/postingan/delete',[App\Http\Controllers\AdminPostinganController::class, 'deleteAdmin'])->name('deletePostingan');
+
+    Route::get('/admin/tambahPostingan',[App\Http\Controllers\AdminPostinganController::class, 'createAdmin'])->name('tambahPostingan');
+
+
+    Route::get('/admin/postingan{id}',[App\Http\Controllers\AdminPostinganController::class, 'showAdmin'])->name('showPostingan');
+    Route::patch('/admin/update',[App\Http\Controllers\AdminPostinganController::class, 'updateAdmin'])->name('updatePostingan');
+
+    Route::get('/admin/data_tulisan',[App\Http\Controllers\AdminPostinganController::class, 'dataTulisan'])->name('dataTulisan'); 
 
     Route::get('/admin/send/{id}',[App\Http\Controllers\AdminPostinganController::class, 'sendAdmin'])->name('sendPostingan');
     Route::get('/admin/publish/{id}',[App\Http\Controllers\AdminPostinganController::class, 'publishAdmin'])->name('publishPostingan');
     Route::get('/admin/reject/{id}',[App\Http\Controllers\AdminPostinganController::class, 'rejectPostingan'])->name('rejectPostingan');
+
+
 
 
     // aktivitas admin
