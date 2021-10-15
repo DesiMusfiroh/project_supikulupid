@@ -89,10 +89,7 @@
                     <div class="article-title">
                       <h2><a href="#">{{$item->judul}}</a></h2>
                     </div>
-                    <p><?php  
-                      $isi = explode('.',$item->isi);
-                      echo $isi[0]." ...";
-                      ?></p>
+                    <p>{!! Str::limit($item->isi, 50, ' ...') !!}</p>
                     <div class="article-cta">
                       <a href="#">Lihat selengkapnya<i class="fas fa-chevron-right"></i></a>
                     </div>

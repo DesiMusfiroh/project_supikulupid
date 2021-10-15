@@ -1,6 +1,5 @@
 @extends('layouts.main.main')
 
-
 @section('container')
 
     {{-- <div class="container"> --}}

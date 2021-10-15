@@ -22,6 +22,13 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="main/assets/css/style.css">
     <!-- endinject -->
+
+      <!-- JQuery Bootstrap -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
   </head>
 
   <body>

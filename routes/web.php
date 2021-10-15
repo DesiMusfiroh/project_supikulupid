@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SubKategoriController;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,25 +20,15 @@ use App\Http\Controllers\SubKategoriController;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return view('main.index');
-});
 // main pages
-Route::get('/berita', function () {
-    // return view('welcome');
-    return view('main.berita');
-});
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/berita', [MainController::class, 'berita'])->name('berita');
+Route::get('/{id}', [MainController::class, 'read'])->name('read');
 
-Route::get('/post', function () {
-    // return view('welcome');
-    return view('main.berita');
-});
-
+// auth pages
 Auth::routes();
 
 Route::get('/home',[HomeController::class, 'index'])->name('home');
-
 
 // route admin and penulis
 Route::post('/postingan/delete',[PostinganController::class, 'delete'])->name('postingan.delete');
