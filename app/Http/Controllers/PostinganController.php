@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Postingan;
+use App\Models\User;
 use App\Models\Kategori;
 use App\Models\SubKategori;
 use App\Models\Log;
@@ -82,7 +83,7 @@ class PostinganController extends Controller
 
     // manage postingan admin
     public function indexAll() {
-        $postingan = Postingan::all();
+        $postingan = Postingan::where('status',['processed','published'])->get();
         return view('admin.postingan.all',compact('postingan'));
     }
 
@@ -121,16 +122,54 @@ class PostinganController extends Controller
         return view('admin.postingan.edit', compact('postingan','kategori'));
     }
 
-    public function publish($id) {
+    public function adminUpdate(Request $request) {
+        $postingan = Postingan::findOrFail($request->id);
+        $postingan->update($request->all());
+        Alert::success("Berhasil !", "Perubahan berhasil disimpan !");
+        return redirect()->route('postingan.admin');
+    }
+
+    public function detail($id) {
         $postingan = Postingan::findOrFail($id);
+        $user = User::where('id', $postingan->user_id)->first();
+        return view('admin.postingan.detail', compact('postingan', 'user'));
+    }
+
+    public function publish(Request $request) {
+        $postingan = Postingan::findOrFail($request->id_publish);
         $date = Carbon::now()->format('Y-m-d H:i:s');
         $postingan->update([
             'status' => 'published',
-            'published_at' => $date,
+            'published_at' => $date
         ]);
-        return redirect()->back()->with('success','Postingan anda berhasil dipublish!');
+        $pesan = $request->pesan;
+        if ($request->pesan == null) {
+            $pesan = "";
+        }
+        $log = Log::where('postingan_id', $postingan->id_postingan)->orderBy('created_at','DESC')->first();
+        $log->update([
+            'status' => 'approved',
+            'pesan' => $pesan,
+        ]);
+        Alert::success("Postingan di publish !", "Postingan $postingan->judul telah di berhasil di publish !");
+        return redirect()->back();
     }
 
+
+    public function reject(Request $request) {
+        $postingan = Postingan::findOrFail($request->id_reject);
+        $date = Carbon::now()->format('Y-m-d H:i:s');
+        $postingan->update([
+            'status' => 'edited',
+        ]);
+        $log = Log::where('postingan_id', $postingan->id_postingan)->orderBy('created_at','DESC')->first();
+        $log->update([
+            'status' => 'rejected',
+            'pesan' => $request->pesan,
+        ]);
+        Alert::success("Postingan di reject !", "Postingan $postingan->judul telah di reject !");
+        return redirect()->back();
+    }
 
     // controller ajax 
     public function getSubKategori($id)  {

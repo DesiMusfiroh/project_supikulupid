@@ -29,8 +29,8 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin'){
-            $postingan_processed = Postingan::where('status','=','processed')->get();
-            return view('admin.index', compact('postingan_processed'));
+            $postingan = Postingan::where('status','=','published')->get();
+            return view('admin.index', compact('postingan'));
         } else if (Auth::user()->role == 'penulis'){
             $user = User::where('id', Auth::user()->id)->first();
             $postingan = Postingan::where('user_id', Auth::user()->id)->get();

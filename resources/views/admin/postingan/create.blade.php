@@ -21,10 +21,10 @@
                 <form action="{{route('postingan_admin.store')}}" method="post"  enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col">
+                    <div class="col">
                             <label>Kategori Tulisan</label>
-                            <select class="form-control" aria-label=".form-select-sm example" name="kategori_id">
-                            <option selected>Pilih Kategori</option>
+                            <select class="form-control" aria-label=".form-select-sm example" name="kategori_id" required>
+                            <option value="">Pilih Kategori</option>
                             @foreach ($kategori as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
@@ -33,25 +33,25 @@
                         <div class="col">
                             <label>Sub Kategori Tulisan</label>
                             <select class="form-control" aria-label=".form-select-sm example" name="subkategori_id" >
-                            <option>Pilih Sub Kategori</option>
+                            <option value="">Pilih Sub Kategori</option>
                             </select>
                         </div>
                         <div class="col">
                             <label>Foto Sampul Tulisan</label>
-                            <input type="file" id="gambar" name="gambar" aria-describedby="inputGroupFileAddon04">
+                            <input type="file" id="gambar" name="gambar" aria-describedby="inputGroupFileAddon04" required>
                         </div>
                     </div>
 
                     <div class="form-group row mt-3">
                         <label for="judul" class="col-md-2 col-form-label">Judul Tulisan</label>
                         <div class="col">
-                        <input type="text" class="form-control" id="judul"  placeholder="Masukkan Judul Tulisan " name="judul">
+                        <input type="text" class="form-control" id="judul"  placeholder="Masukkan Judul Tulisan " name="judul" required>
                         </div>
                     </div>
             
                     <div class="form-group">
                         <label>Isi Konten</label>
-                        <textarea class="form-control" type="text" id="ckeditor" name="isi"></textarea>
+                        <textarea class="form-control" type="text" id="ckeditor" name="isi" required></textarea>
                     </div>
                     
                     <button type="submit" class="btn btn-primary" style="float:right">Simpan</button>
