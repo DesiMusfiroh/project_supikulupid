@@ -103,4 +103,11 @@ Route::get('getnotificationpenulis', [PenulisController::class, 'getNotification
 // main pages
 Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/berita', [MainController::class, 'berita'])->name('berita');
+Route::get('/esai', [MainController::class, 'esai'])->name('esai');
+Route::get('/nyablak', [MainController::class, 'nyablak'])->name('nyablak');
+Route::get('/inspirasi', [MainController::class, 'inspirasi'])->name('inspirasi');
+Route::get('/review_buku', [MainController::class, 'review_buku'])->name('review_buku');
+Route::get('/puisi', [MainController::class, 'puisi'])->name('puisi');
+Route::get('/cerpen', [MainController::class, 'cerpen'])->name('cerpen');
+Route::get('/anekdot', [MainController::class, 'anekdot'])->name('anekdot');
 Route::get('/{id}', [MainController::class, 'read'])->name('read');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Postingan;
 use App\Models\Kategori;
+use App\Models\SubKategori;
 use App\Models\Penulis;
 use App\Models\Log;
 use App\Models\User;
@@ -18,9 +19,17 @@ class MainController extends Controller
     }
 
     public function berita() {
-        $kategori_berita_id = Kategori::where('nama','Berita')->value('id_kategori');
-        $berita = Postingan::where('kategori_id', $kategori_berita_id)->get();
-        return view('main.berita', compact('berita'));
+        $kategori = Kategori::where('nama','Berita')->value('id_kategori');
+        $postingan = Postingan::where('kategori_id', $kategori)->get();
+        $title = "Berita";
+        return view('main.postingan', compact('postingan','title'));
+    }
+
+    public function esai() {
+        $sub_kategori = SubKategori::where('nama','Esai')->value('id_subkategori');
+        $postingan = Postingan::where('subKategori_id', $sub_kategori)->get();
+        $title = "Esai";
+        return view('main.postingan', compact('postingan','title'));
     }
 
     public function read($id) {

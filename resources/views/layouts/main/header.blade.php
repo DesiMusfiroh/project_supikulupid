@@ -4,7 +4,7 @@
       <div class="navbar-top">
         <div class="text-center">
           <a class="navbar-brand" href="#">
-            <img src="main/assets/images/logo.svg" alt="" class=""/>
+            <img src="../images/app/logo supikulup.png" alt="" class=""/>
           </a>
         </div>
         <div class="d-flex justify-content-between align-items-center">
@@ -59,10 +59,10 @@
                       Artikel
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Esai</a></li>
-                      <li><a class="dropdown-item" href="#">Nyablak</a></li>
-                      <li><a class="dropdown-item" href="#">Inspirasi</a></li>
-                      <li><a class="dropdown-item" href="#">Review Buku</a></li>
+                      <li><a class="dropdown-item" href="{{route('esai')}}">Esai</a></li>
+                      <li><a class="dropdown-item" href="{{route('nyablak')}}">Nyablak</a></li>
+                      <li><a class="dropdown-item" href="{{route('berita')}}">Inspirasi</a></li>
+                      <li><a class="dropdown-item" href="{{route('review_buku')}}">Review Buku</a></li>
                     </ul>
                   </li>
                   <li class="nav-item dropdown">
@@ -70,9 +70,9 @@
                       Nyastra
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <li><a class="dropdown-item" href="#">Puisi</a></li>
-                      <li><a class="dropdown-item" href="#">Cerpen</a></li>
-                      <li><a class="dropdown-item" href="#">Anekdot</a></li>
+                      <li><a class="dropdown-item" href="{{route('puisi')}}">Puisi</a></li>
+                      <li><a class="dropdown-item" href="{{route('cerpen')}}">Cerpen</a></li>
+                      <li><a class="dropdown-item" href="{{route('anekdot')}}">Anekdot</a></li>
                     </ul>
                   </li>
                   <li class="nav-item">

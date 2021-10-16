@@ -56,7 +56,7 @@ $(function() {
     pulseAlgorithm: 1,
     pulseScale: 8,
     pulseNormalize: 1,
-    accelerationDelta: 100,
+    accelerationDelta: 10000,
     accelerationMax: 1,
     keyboardSupport: true,
     arrowScroll: 50,
