@@ -4,6 +4,7 @@
 ?>
 @extends('layouts.admin.master')
 
+
 @section('breadcrumb')
     <h3 class="text-themecolor">Buat Postingan Baru</h3>
     <ol class="breadcrumb">
@@ -12,6 +13,7 @@
         <li class="breadcrumb-item active">Tambah</li>
     </ol>
 @endsection
+
 
 @section('content')
 <section class="section">
@@ -27,21 +29,25 @@
     <div class="section-body">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('storePostingan')}}" method="post"  enctype="multipart/form-data" id='form1'>
+
+                <form action="{{route('postingan_admin.store')}}" method="post"  enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col">
                             <label>Kategori Tulisan</label>
-                            <select class="form-control" aria-label=".form-select-sm example" name="kategori_id" id="category">
+                            <select class="form-control" aria-label=".form-select-sm example" name="kategori_id">
                             <option selected>Pilih Kategori</option>
-                            @foreach($kategori as $item)
-                                <option value="{{$item->id_kategori}}">{{$item->nama}}</option>
+                            @foreach ($kategori as $key => $value)
+                                <option value="{{ $key }}">{{ $value }}</option>
                             @endforeach
                             </select>
                         </div>
-                        <div class="col-4">
-                            <label>SubKategori Tulisan</label>
-                            <select class="browser-default custom-select" name="subKategori_id" id="subcategory"></select>
+                        <div class="col">
+                            <label>Sub Kategori Tulisan</label>
+                            <select class="form-control" aria-label=".form-select-sm example" name="subkategori_id" >
+                            <option>Pilih Sub Kategori</option>
+                            </select>
+
                         </div>
                         <div class="col">
                             <label>Foto Sampul Tulisan</label>
@@ -71,33 +77,38 @@
 </section>
 
 <script src="//cdn.ckeditor.com/4.13.1/full/ckeditor.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
-    CKEDITOR.replace( 'ckeditor' );
-</script>
-
-<script type="text/javascript">
-
-$(document).ready(function () {
-    $('#category').on('change',function(e) {
-        // console.log(e);
-        var kategori_id = e.target.value;
-        $.ajax({
-            url:`{{ route('createSubKategori') }}`,
-            type:"POST",
-            data: {
-            kategori_id: kategori_id,
-            "_token": "{{ csrf_token() }}",
-            },
-            success:function (data) {
-            // console.log(data);
-            $('#subcategory').append(data);
-            // $.each(data.subcategories[0].subcategories,function(index,subcategory){
-            // $('#subcategory').append('<option value="'+subcategory.id_subkategori+'">'+subcategory.nama+'</option>');
-            // })
-            }
-        })
+   CKEDITOR.replace('ckeditor', {
+        filebrowserUploadUrl: "{{route('upload.image', ['_token' => csrf_token() ])}}",
+        filebrowserUploadMethod: 'form'
     });
-});
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery('select[name="kategori_id"]').on('change',function(){
+            var kategoriID = jQuery(this).val();
+            if(kategoriID) {
+                jQuery.ajax({
+                    url : 'create/getsubkategori/' + kategoriID,
+                    type : "GET",
+                    dataType : "json",
+                    success: function(data){
+                        console.log("data ===" +data);
+                        jQuery('select[name="subkategori_id"]').empty();
+                        jQuery.each(data, function(key,value){
+                           $('select[name="subkategori_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                        });
+                    }
+                });
+            }
+            else {
+                $('select[name="subkategori_id"]').empty();
+            }
+        });
+    });
 </script>
 
 @stop

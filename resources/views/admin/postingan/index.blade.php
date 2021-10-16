@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
     use App\Models\Postingan;
 ?>
@@ -5,6 +6,12 @@
 
 @section('breadcrumb')
     <h3 class="text-themecolor">Daftar Postingan</h3>
+=======
+@extends('layouts.admin.master')
+
+@section('breadcrumb')
+    <h3 class="text-themecolor">Postingan Admin</h3>
+>>>>>>> e82e8d9aac6fb12035a18133c98ae58877722e66
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
         <li class="breadcrumb-item active">Postingan</li>
@@ -30,7 +37,11 @@
 
     <div class="card-header">
         <h4>Daftar Postingan</h4>
+<<<<<<< HEAD
         <!-- <agit href="{{route('postingan.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a> -->
+=======
+        <a href="{{route('postingan_admin.create')}}" class="btn btn-success" style="float:right"> <i class="fa fa-plus mr-2 "></i> Tambah</a>
+>>>>>>> e82e8d9aac6fb12035a18133c98ae58877722e66
     </div>
     <div class="bady-body">
         <table class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -54,16 +65,19 @@
                         <td>{{$value->status}}</td>
                         <td class="text-right">
                             @if ($value->status == 'edited')
-                                <a href="{{route('sendPostingan', $value->id_postingan)}}" >
-                                    <button class="btn btn-info btn-action"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+
+                                <a href="{{route('postingan.publish', $value->id_postingan)}}" >
+                                    <button class="btn btn-info btn-action"> <i class="fa fa-send"></i> </button>
                                 </a>     
                             @endif  
-                            <a href="{{route('showPostingan', $value->id_postingan)}}">
+                            <a href="{{route('postingan_admin.edit', $value->id_postingan)}}">
+
                                 <button class="btn btn-warning btn-action"> <i class="fa fa-edit"></i> </button>
                             </a>                    
                             <button class="btn btn-danger btn-action" data-toggle="modal" data-target=".delete_modal"
                                 id="delete"
-                                data-id_delete="{{ $value->id_postingan }}"
+                                data-id_delete="{{ $value->id }}"
+
                                 data-judul_delete="{{ $value->judul }}">
                                 <i class="fa fa-trash"></i>                                       
                             </button>
@@ -85,7 +99,9 @@
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <form action="{{route('deletePostingan')}}" method="post">
+
+        <form action="{{route('postingan.delete')}}" method="post">
+
             @csrf
             <div class="modal-body">
                 <input type="hidden" name="id" value="" id="id_delete" >

@@ -20,5 +20,11 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('admin12345'),
             'role'=> 'admin',
         ]);
+        User::insert([
+            'username' => 'user',
+            'email' => 'user@gmail.com',
+            'password' => bcrypt('user12345'),
+            'role'=> 'penulis',
+        ]);
     }
 }

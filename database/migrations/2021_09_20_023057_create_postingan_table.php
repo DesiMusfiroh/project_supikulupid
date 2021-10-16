@@ -17,7 +17,7 @@ class CreatePostinganTable extends Migration
             $table->Increments('id_postingan');
             $table->unsignedBigInteger('user_id');
             $table->unsignedInteger('kategori_id');
-            $table->unsignedInteger('subKategori_id');
+            $table->unsignedInteger('subKategori_id')->nullable();
             $table->string('judul',50);
             $table->longText('isi');
             $table->enum('status',['edited','processed','published'])->default('edited');

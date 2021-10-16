@@ -13,7 +13,6 @@
 
     <div class="section-body">
         <div class="card">
-        
             <table class="table table-striped" width="100%" cellspacing="0">
                 <thead>
                     <tr>
