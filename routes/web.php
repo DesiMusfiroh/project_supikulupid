@@ -20,11 +20,6 @@ use App\Http\Controllers\MainController;
 |
 */
 
-// main pages
-Route::get('/', [MainController::class, 'index'])->name('index');
-Route::get('/berita', [MainController::class, 'berita'])->name('berita');
-Route::get('/{id}', [MainController::class, 'read'])->name('read');
-
 // auth pages
 Auth::routes();
 
@@ -99,3 +94,11 @@ Route::post('upload_image_editor',[PostinganController::class, 'uploadImageEdito
 
 Route::get('getnotificationadmin', [AdminController::class, 'getNotification']);
 Route::get('getnotificationpenulis', [PenulisController::class, 'getNotification']);
+
+
+
+
+// main pages
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/berita', [MainController::class, 'berita'])->name('berita');
+Route::get('/{id}', [MainController::class, 'read'])->name('read');
