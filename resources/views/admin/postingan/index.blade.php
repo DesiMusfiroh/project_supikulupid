@@ -74,6 +74,7 @@
 
                                 <button class="btn btn-warning btn-action"> <i class="fa fa-edit"></i> </button>
                             </a>                    
+<<<<<<< HEAD
                             <button class="btn btn-danger btn-action" data-toggle="modal" data-target=".delete_modal"
                                 id="delete"
                                 data-id_delete="{{ $value->id }}"
@@ -81,6 +82,14 @@
                                 data-judul_delete="{{ $value->judul }}">
                                 <i class="fa fa-trash"></i>                                       
                             </button>
+=======
+                            <button class="btn btn-danger btn-action  btn-sm" data-toggle="modal" data-target=".delete_modal"
+                                    id="delete"
+                                    data-id_delete="{{ $value->id_postingan }}"
+                                    data-judul_delete="{{ $value->judul }}">
+                                    <i class="fa fa-trash"></i>                                       
+                                </button>
+>>>>>>> 798d03c38cbaa4d79ebe550708d27948b102789a
                         </td>
                     </tr>
                @endforeach
@@ -104,7 +113,7 @@
 
             @csrf
             <div class="modal-body">
-                <input type="hidden" name="id" value="" id="id_delete" >
+                <input type="hidden" name="id_delete" value="" id="id_delete" >
                 <p>Postingan : <b> <span id="judul_delete"></span> </b> akan di hapus </p>     
             </div>
             <div class="modal-footer">

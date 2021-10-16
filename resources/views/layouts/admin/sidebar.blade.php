@@ -14,7 +14,6 @@
           <li class="nav-item dropdown {{(request()->is('postingan_admin')) ? 'active' : ''}}">
             <a href="#" class="nav-link has-dropdown"><i class="far fa-file-alt"></i> <span>Postingan Admin</span></a>
             <ul class="dropdown-menu">
-
               <li><a class="nav-link" href="/postingan_admin/create">Buat Postingan</a></li>
               <li><a class="nav-link" href="/postingan_admin">Riwayat Postingan Admin</a></li>
             </ul>
