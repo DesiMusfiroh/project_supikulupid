@@ -15,6 +15,8 @@
                         </div>
                         <p class="font-weight-600 fs-15 text-center"> {!!$postingan->isi!!} </p>
                     </div>
+                    <hr>
+                    <div class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/comments#configurator" width="100%" height="5%" data-numposts="3" ></div>
                   </div>
                 </div>
             </div>
