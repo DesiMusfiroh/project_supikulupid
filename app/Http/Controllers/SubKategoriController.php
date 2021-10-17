@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SubKategori;
 use App\Models\Kategori;
+use Alert;
 
 class SubKategoriController extends Controller
 {
@@ -31,17 +32,8 @@ class SubKategoriController extends Controller
         $subKategori -> nama = $nama_subKategori;
         $subKategori->save();
 
-        return redirect()->back()->with('success','Data Berhasil Di Simpan');
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        
+        Alert::success("Berhasil !", "Sub Kategori $subKategori->nama berhasil disimpan!");
+        return redirect()->back();
     }
 
     public function update(Request $request)
@@ -54,14 +46,15 @@ class SubKategoriController extends Controller
             'kategori_id' => $kategori_id,
             'nama'=> $subKategori_nama,
         ]);
-
-        return redirect()->back()->with('success','Data Berhasil Diubah');
+        Alert::success("Berhasil !", "Sub Kategori $subKategori_nama berhasil diupdate!");
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
-        $subKategori = SubKategori::where('id_subkategori',$id)->delete();
-
-        return redirect()->back()->with('error','Data Baerhasil Di Hapus');
+        $subKategori = SubKategori::where('id_subkategori',$id)->first();
+        $subKategori->delete();
+        Alert::success("Sub Kategori dihapus !", "Sub Kategori $subKategori->nama telah dihapus!");
+        return redirect()->back();
     }
 }

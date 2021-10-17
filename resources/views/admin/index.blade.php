@@ -11,7 +11,7 @@
     </div>
 
     <div class="section-body">
-        <h2 class="section-title">Postingan Penulis</h2>
+        <h2 class="section-title">Semua Postingan Terpublikasi</h2>
         <div class="row">
             @foreach($postingan as $item)
             <div class="col-12 col-md-4 col-lg-4">
@@ -23,14 +23,18 @@
                 <div class="article-details">
                     <div class="article-category"><a href="#">{{$item->kategori->nama}}</a> <div class="bullet"></div> <a href="#">{{$item->updated_at}}</a></div>
                     <div class="article-title">
-                    <h2><a href="#">{{$item->judul}}</a></h2>
+                    <h2><a href="{{route('read', $item->id_postingan)}}">{{$item->judul}}</a></h2>
                     </div>
                     <p>{!! Str::limit($item->isi, 150, ' ...') !!}</p>
                     <div class="article-user">
-                        @if ($item->user->penulis->image == null)
-                        <img alt="image" src="../assets/img/avatar/avatar-1.png">
+                        @if ($item->user->role == 'penulis')
+                            @if ($item->user->penulis->image == null)
+                            <img alt="image" src="../assets/img/avatar/avatar-1.png">
+                            @else
+                            <img alt="image" src="../images/{{$item->user->penulis->image}}">
+                            @endif
                         @else
-                        <img alt="image" src="../images/{{$item->user->penulis->image}}">
+                            <img alt="image" src="../assets/img/avatar/avatar-1.png">
                         @endif
                     <div class="article-user-details">
                         <div class="user-detail-name">

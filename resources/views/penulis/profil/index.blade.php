@@ -7,8 +7,7 @@
         <h1>Edit Profil Penulis</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="/home">Dashboard</a></div>
-            <div class="breadcrumb-item"><a href="/profil">Profil</a></div>
-            <div class="breadcrumb-item">Edit</div>
+            <div class="breadcrumb-item">Edit Profil</div>
         </div>
     </div>
 

@@ -29,12 +29,7 @@
     <div class="section-body">
         <div class="card">
             <div class="card-body">
-<<<<<<< HEAD
-
-                <form action="{{route('postingan.store')}}" method="post"  enctype="multipart/form-data">
-=======
                 <form action="{{route('postingan_admin.update')}}" method="post"  enctype="multipart/form-data">
->>>>>>> 798d03c38cbaa4d79ebe550708d27948b102789a
                     @csrf
                     @method('PATCH')
                     <input type="hidden" name="id" value="{{$postingan->id_postingan}}" />
@@ -45,21 +40,14 @@
                             <option selected value="{{$postingan->kategori_id}}">Pilih Kategori</option>
                             @foreach ($kategori as $key => $value)
                                 <option value="{{ $key }}">{{ $value }}</option>
->>>>>>> e82e8d9aac6fb12035a18133c98ae58877722e66
+
                             @endforeach
                             </select>
                         </div>
                         <div class="col">
                             <label>Sub Kategori Tulisan</label>
-<<<<<<< HEAD
-
                             <select class="form-control" aria-label=".form-select-sm example" name="subkategori_id" >
                             <option>Pilih Sub Kategori</option>
->>>>>>> e82e8d9aac6fb12035a18133c98ae58877722e66
-=======
-                            <select class="form-control" aria-label=".form-select-sm example" name="subkategori_id"  >
-                            <option >Pilih Sub Kategori</option>
->>>>>>> 798d03c38cbaa4d79ebe550708d27948b102789a
                             </select>
                         </div>
                         <div class="col">
@@ -77,13 +65,7 @@
             
                     <div class="form-group">
                         <label>Isi Konten</label>
-<<<<<<< HEAD
-
-                        <textarea class="form-control" type="text" id="ckeditor" name="isi" value="{!!$postingan->isi!!}"></textarea>
-
-=======
                         <textarea class="form-control" type="text" id="ckeditor" name="isi" required>{!!$postingan->isi!!}</textarea>
->>>>>>> 798d03c38cbaa4d79ebe550708d27948b102789a
                     </div>
                     
                     

@@ -12,50 +12,50 @@
     </div>
 
     <div class="section-body">
-        <div class="card">
-            @if ($message = Session::get('success'))
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button>    
-                <strong>{{ $message }}</strong>
-            </div>
-            @endif
 
-            @if ($message = Session::get('error'))
-            <div class="alert alert-danger alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button>    
-                <strong>{{ $message }}</strong>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card table-inside">
+                    <table class="table table-striped" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="15px">No</th>
+                                <th>Nama Kategori</th>
+                                <th class="text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($kategori as $no => $value)
+                            <tr>
+                                <td>{{++$no}}</td>
+                                <td>{{$value->nama}}</td>
+                                <td class="text-right">
+                                <button href="#" class="btn btn-warning edit-kategori" 
+                                    data-kategori_id="{{$value->id_kategori}}" 
+                                    data-nama_kategori="{{$value->nama}}" 
+                                    data-toggle="modal" data-target="#edit_kategori">
+                                        Edit
+                                </button>    
+                                <a href="/kategori/{{$value->id_kategori}}"  class="btn btn-danger">Hapus</a>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            @endif
-            <div class="pull-rigth">
-                <button href="#" class='btn btn-success float-right' data-toggle="modal" data-target="#modalForm">Tambah Kategori</button>
-            </div>
-            <table class="table table-striped" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Kategori</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($kategori as $no => $value)
-                    <tr>
-                        <td>{{++$no}}</td>
-                        <td>{{$value->nama}}</td>
-                        <td>
-                        <button href="#" class="btn btn-warning edit-kategori" 
-                            data-kategori_id="{{$value->id_kategori}}" 
-                            data-nama_kategori="{{$value->nama}}" 
-                            data-toggle="modal" data-target="#edit_kategori">
-                                Edit
-                        </button>    
-                        <a href="/kategori/{{$value->id_kategori}}"  class="btn btn-danger">Hapus</a>
 
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            <div class="col-md-3">
+                <div class="card card-primary">
+                    <div class="card-header"><h4>Tambah Kategori</h4></div>
+                    <div class="card-body">
+                        <div class="text-center">
+                            <button href="#" class='btn btn-success' data-toggle="modal" data-target="#modalForm"> <i class="fa fa-plus mr-2"></i> Tambah</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
 </section>
 
@@ -85,19 +85,8 @@
   </div>
 </div>
 
-@stop
-
-@section('footer')
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
-<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#tabel-data').DataTable();
-    });
-</script>
 
 <script>
     $('#btn-tambah').on('click',function(){
@@ -151,7 +140,6 @@
         <form action="{{route('kategori.update')}}" enctype="multipart/form-data" method="post">
           @csrf @method('PATCH')
             <div class="modal-body">
-              <div class="container">
               <div class="col-md-12">
                     <div class="form-group">
                       <label for="nama_pakar" class="col-form-label">Nama Kategori</label>
@@ -163,12 +151,13 @@
             </div>
 
           <div class="modal-footer">
-          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn btn-info btn-sm" >Simpan</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary" >Simpan Perubahan</button>
           </div>
         </form>
       </div>
     </div>
 </div>
+
 @stop
 

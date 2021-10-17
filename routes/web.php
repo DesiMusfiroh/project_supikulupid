@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
     Route::post('/postingan_admin/store',[PostinganController::class, 'adminStore'])->name('postingan_admin.store');
     Route::get('/postingan_admin/{id}',[PostinganController::class, 'adminEdit'])->name('postingan_admin.edit');
     Route::patch('/postingan_admin/update',[PostinganController::class, 'adminUpdate'])->name('postingan_admin.update');
+    Route::get('/postingan_admin/publish/{id}',[PostinganController::class, 'adminPublish'])->name('postingan_admin.publish');
 
     // postingan penulis di admin
     Route::get('/postingan_all', [PostinganController::class, 'indexAll'])->name('postingan.all');
@@ -88,7 +89,6 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']],function(){
 
     // aktivitas admin
     Route::get('/logs_admin',[AdminController::class, 'logs'])->name('logs.admin'); 
-
 
     // pengaturan admin
     Route::get('/pengaturan_admin',[AdminController::class, 'pengaturan'])->name('pengaturan.admin');

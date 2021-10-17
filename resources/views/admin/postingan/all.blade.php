@@ -13,7 +13,8 @@
 
     <div class="section-body">
       <div class="card">
-          <table class='table table-condensed table-hover'>
+        <div class="table-inside table-responsive">
+            <table class='table table-condensed table-hover'>
                 <thead>
                     <tr>
                         <th class="text-center">No</th>
@@ -26,10 +27,10 @@
                 </thead>
                 <tbody>
                     @foreach($postingan as $no => $value)
-                        <tr class="table-row" data-href="{{route('postingan.detail',$value->id_postingan)}}">
+                        <tr>
                             <td class="text-center">{{$no+1}}</td>
                             <td>{{$value->kategori->nama}}</td>
-                            <td> @if ($value->sub_kategori != null)  {{$value->sub_kategori->nama}}@endif</td>
+                            <td> @if ($value->sub_kategori != null) {{$value->sub_kategori->nama}} @endif</td>
                             <td>{{$value->judul}}</td>
                             <td> 
                                 @if ($value->status == 'published')
@@ -39,6 +40,11 @@
                                 @endif
                             </td>
                             <td class="text-right">
+                                <a  href="{{route('postingan.detail',$value->id_postingan)}}">
+                                    <button type="button" class="btn btn-info"><i class="fa fa-eye"></i> </button>
+                                </a>
+
+                                @if ($value->status == 'processed')
                                 <button class="btn btn-success btn-action btn-sm" data-toggle="modal" data-target=".publish_modal"
                                     id="publish"
                                     data-id_publish="{{ $value->id_postingan }}"
@@ -52,12 +58,14 @@
                                     data-judul_reject="{{ $value->judul }}">
                                     <i class="fa fa-times"></i>                                       
                                 </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
+      </div>
     </div>
 </section>
 
@@ -131,10 +139,6 @@ $(document).ready(function(){
         $('#id_reject').val(id_reject);
         $('#judul_reject').text(judul_reject);
     });     
-
-    $(".table-row").click(function() {
-        window.document.location = $(this).data("href");
-    });
 });
 </script>
 

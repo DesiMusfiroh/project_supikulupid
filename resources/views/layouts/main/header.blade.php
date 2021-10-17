@@ -61,7 +61,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                       <li><a class="dropdown-item" href="{{route('esai')}}">Esai</a></li>
                       <li><a class="dropdown-item" href="{{route('nyablak')}}">Nyablak</a></li>
-                      <li><a class="dropdown-item" href="{{route('berita')}}">Inspirasi</a></li>
+                      <li><a class="dropdown-item" href="{{route('inspirasi')}}">Inspirasi</a></li>
                       <li><a class="dropdown-item" href="{{route('review_buku')}}">Review Buku</a></li>
                     </ul>
                   </li>

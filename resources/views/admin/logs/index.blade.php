@@ -12,7 +12,7 @@
     </div>
 
     <div class="section-body">
-        <div class="card">
+        <div class="card table-inside">
         
             <table class="table table-striped">
                 <thead>

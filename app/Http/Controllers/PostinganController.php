@@ -37,11 +37,6 @@ class PostinganController extends Controller
 
     }
 
-    
-
-   
-
-
     public function store(Request $request) {
         $request->validate([
             'judul' => 'required',
@@ -105,7 +100,7 @@ class PostinganController extends Controller
 
     // manage postingan admin
     public function indexAll() {
-        $postingan = Postingan::where('status',['processed','published'])->get();
+        $postingan = Postingan::where('user_id', '!=', Auth::user()->id)->where('status',['published','processed'])->get();
         return view('admin.postingan.all',compact('postingan'));
     }
 
@@ -151,6 +146,17 @@ class PostinganController extends Controller
         return redirect()->route('postingan.admin');
     }
 
+    public function adminPublish($id) {
+        $postingan = Postingan::findOrFail($id);
+        $date = Carbon::now()->format('Y-m-d H:i:s');
+        $postingan->update([
+            'status' => 'published',
+            'published_at' => $date
+        ]);
+        Alert::success("Postingan di publish !", "Postingan $postingan->judul telah di berhasil di publish !");
+        return redirect()->back();
+    }
+
     public function detail($id) {
         $postingan = Postingan::findOrFail($id);
         $user = User::where('id', $postingan->user_id)->first();
@@ -176,7 +182,6 @@ class PostinganController extends Controller
         Alert::success("Postingan di publish !", "Postingan $postingan->judul telah di berhasil di publish !");
         return redirect()->back();
     }
-
 
     public function reject(Request $request) {
         $postingan = Postingan::findOrFail($request->id_reject);

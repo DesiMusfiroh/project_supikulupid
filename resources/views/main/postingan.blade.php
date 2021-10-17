@@ -18,7 +18,7 @@
                             </small>
                         </p>
                         <p class="card-text">{!! Str::limit($item->isi, 70, ' ...') !!}</p>
-                        <a href="{{route('read', $item->id_postingan)}}" class="btn btn-primary mt-1">Read More..</a>
+                        <a href="{{route('read', $item->id_postingan)}}" class="btn btn-primary mt-1">Baca selengkapnya ...</a>
                        
                     </div>
                 </div>

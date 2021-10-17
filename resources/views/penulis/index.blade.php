@@ -91,7 +91,7 @@
                     </div>
                     <p>{!! Str::limit($item->isi, 50, ' ...') !!}</p>
                     <div class="article-cta">
-                      <a href="#">Lihat selengkapnya<i class="fas fa-chevron-right"></i></a>
+                      <a href="{{route('read', $item->id_postingan)}}">Lihat selengkapnya<i class="fas fa-chevron-right"></i></a>
                     </div>
                   </div>
                 </article>
